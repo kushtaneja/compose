@@ -202,6 +202,59 @@ scrollDrft.parent = draft
 
 draft0.onClick ->
 	flow.showNext(imageedit)
+	finalImageLayer = new Layer
+			x: FinalImageView.x
+			y: FinalImageView.y
+			width: FinalImageView.width
+			height: FinalImageView.height
+			image: "images/design/GQlZpyrJ0iMJJAkadQkyqxk4EQPowFo7FpzRKiJP4qmPPhmSPUiBG6OuXe4I0MTgkCiPlMsS1ydaV8Ol6Q.png"
+			parent: FinalImageView.parent
+		
+		finalImageLayer.placeBehind(FinalImageView)
+		FinalImageView.visible = false
+		final_text.text = draft0_text.text
+
+draft1.onClick ->
+	flow.showNext(imageedit)
+	finalImageLayer = new Layer
+			x: FinalImageView.x
+			y: FinalImageView.y
+			width: FinalImageView.width
+			height: FinalImageView.height
+			image: "images/design/SIQa2OYLYrrmPKQ1jPyd8QbicAr0bScqSLbfkroizCQK4hFc7rBiLpv8EDN5ofKXMncThBmRgZ1rzwrKw.png"
+			parent: FinalImageView.parent
+	finalImageLayer.placeBehind(FinalImageView)
+	FinalImageView.visible = false
+	final_text.text = draft1_text.text
+
+draft2.onClick ->
+	flow.showNext(imageedit)
+	finalImageLayer = new Layer
+			x: FinalImageView.x
+			y: FinalImageView.y
+			width: FinalImageView.width
+			height: FinalImageView.height
+			image: "images/design/vlnPIZhO6Vx4oekl30cHB6oCrDZjN09YPW990qoknstxKgvHAs9vh6AbTG55DHpQ2i6UMHxDCxuyqaaqEdg.png"
+			parent: FinalImageView.parent
+	finalImageLayer.placeBehind(FinalImageView)
+	FinalImageView.visible = false
+	final_text.text = draft2_text.text
+
+draft3.onClick ->
+	flow.showNext(imageedit)
+	finalImageLayer = new Layer
+			x: FinalImageView.x
+			y: FinalImageView.y
+			width: FinalImageView.width
+			height: FinalImageView.height
+			image: "images/design/SIQa2OYLYrrmPKQ1jPyd8QbicAr0bScqSLbfkroizCQK4hFc7rBiLpv8EDN5ofKXMncThBmRgZ1rzwrKw.png"
+			parent: FinalImageView.parent
+	finalImageLayer.placeBehind(FinalImageView)
+	FinalImageView.visible = false
+	final_text.text = draft3_text.text
+	
+imageedit_back.onClick ->
+	flow.showPrevious()
 
 imageedit_next.onClick ->
 	flow.showNext(tag_screen)
