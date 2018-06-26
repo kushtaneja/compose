@@ -6,7 +6,7 @@ InputModule = require "input-framer/input"
 InputModule = require "input"
 textInput = new InputModule.Input
 	setup: false
-	virtualKeyboard: false 
+	virtualKeyboard: true 
 	placeholder: "Kuch to likh hi do" 
 	y: textinput.x # y position
 	x: textinput.y  # x position
@@ -54,6 +54,48 @@ text_btn.states =
 		x: 180
 		y: 640
 		opacity: 0
+
+paste_clipboard.onClick ->
+	textInput.text ="Pasted what's on your keyboard"
+
+bg1.states =
+	one:
+		backgroundColor: "yellow"
+	two:
+		backgroundColor: "blue"
+	three:
+		backgroundColor: "green"
+	four:
+		backgroundColor: "red"
+
+bg1.animationOptions =
+	time:0.5
+
+color_selector.states =
+	one:
+		backgroundColor: "yellow"
+	two:
+		backgroundColor: "blue"
+	three:
+		backgroundColor: "green"
+	four:
+		backgroundColor: "red"
+
+color_selector.animationOptions =
+	time:0.5
+
+color_selector.onClick ->
+	bg1.stateCycle("one","two","three","four")
+	color_selector.stateCycle("one","two","three","four")
+
+textInput.states =
+	one:
+		fontWeight: "bold"
+	two:
+		fontWeight: 100
+
+bold_btn.onClick ->
+	textInput.stateCycle("one","two")
 
 Mask.states =
 	one:
@@ -108,10 +150,7 @@ text_btn.onClick ->
 	flow.showNext(text)
 	textinput.visible = false
 	textInput.setup = true
-	
-Bold.onClick ->
-	textInput.style =
-		fontWeight: 400
+
 	
 text_back.onClick ->
 	flow.showPrevious()
@@ -211,6 +250,10 @@ post_1.onClick ->
 post_2.onClick ->
 	flow.showNext(Samsung_Note_5)
 
+text_next.onClick ->
+	flow.showNext(tag_screen)
+
+
 
 # Variables
 rows = 16
@@ -236,5 +279,4 @@ for index in [0...rows]
 
 scroll.parent = bucket_scroll
 
-//
 
