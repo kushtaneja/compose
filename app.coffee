@@ -1,6 +1,6 @@
 CameraInput = require "framer-camera-input/CameraInput"
 InputModule = require "input-framer/input"
-
+# Flexer = require "Flexer"
 
 	# Basic usage
 InputModule = require "input"
@@ -253,30 +253,133 @@ post_2.onClick ->
 text_next.onClick ->
 	flow.showNext(tag_screen)
 
+tagscreen_next.onClick ->
+	flow.showNext(final_screen)
+
 
 
 # Variables
 rows = 16
 gutter = 10
-rowHeight = 48
+rowHeight = 64
 
 scroll = new ScrollComponent
-	width: 96
-	height: screen.height
+	size: bucket_scroll.size
 	scrollHorizontal: false
 
+scroll.parent = bucket_scroll
+
+cells = []
 # Loop to create row layers
 for index in [0...rows]
 
 	cell = new Layer
-		width:  Bucket_1.width
+		width:  rowHeight
 		height: rowHeight
-		y: 16 + index * (rowHeight + gutter)
-		x: 28
+		x: bucket_scroll.width/2 - rowHeight/2
+		y: index * (rowHeight + gutter)
+		originX: 0.5
+		originY: 0.5
 		parent: scroll.content
 		backgroundColor: "#00AAFF"
 		hueRotate: index * 10
+	cells.push(cell)
 
-scroll.parent = bucket_scroll
+scroll.content.draggable.overdrag = false
+scroll.content.draggable.bounce = false
+scroll.contentInset =
+	top: bucket_scroll.height/2
+	bottom: bucket_scroll.height/2
+scroll.content.draggable.momentumOptions = {friction: 1000}
 
 
+scroll.onScroll ->
+	for i in [0...rows]
+		if cells[i].screenFrame.y >= -100 && cells[i].screenFrame.y <= Screen.height/2
+			cells[i].scale = 0.5 + (cells[i].screenFrame.y) / Screen.height
+		#	print(cells[3].scale)
+		else if cells[i].screenFrame.y >= Screen.height/2 && cells[i].screenFrame.y <= Screen.height + 100
+			cells[i].scale = 0.5 + (Screen.height - cells[i].screenFrame.y) / Screen.height
+		else
+			cells[i].scale = 0.5
+		
+		#hellllo = Utils.round(cells[i].screenFrame.y , 0 ,10)
+		
+		#print hellllo
+		
+	for i in [0...rows]
+		if cells[i].scale < 0.94
+			cells[i].opacity = 0.5
+		else
+			cells[i].opacity = 1
+
+###
+
+PageComp = new PageComponent
+	x: 0
+	y: 0
+	height: Screen.height
+	width: Screen.width
+	backgroundColor: '#fedefe'
+	opacity: 0.4
+	scrollVertical: false
+	scrollHorizontal: false
+	originX: 0.5
+
+PageComp.parent = PageComp_parent
+	
+
+Page_all.parent = PageComp.content
+
+Page_image.parent = PageComp.content
+
+Page_video.parent = PageComp.content
+
+Page_audio.parent = PageComp.content
+
+Page_gif.parent = PageComp.content
+
+Image_1.onClick ->
+   PageComp.snapToPage(Page_image)
+
+###
+
+Image_1.onClick ->
+	Page_image.opacity = 1
+	Page_all.opacity = 0
+	Page_gif.opacity = 0
+	Page_audio.opacity = 0
+	Page_video.opacity = 0
+
+Video.onClick ->
+	Page_image.opacity = 0
+	Page_all.opacity = 0
+	Page_gif.opacity = 0
+	Page_audio.opacity = 0
+	Page_video.opacity = 1
+
+
+Audio_1.onClick ->
+	Page_image.opacity = 0
+	Page_all.opacity = 0
+	Page_gif.opacity = 0
+	Page_audio.opacity = 1
+	Page_video.opacity = 0
+		
+Gif.onClick ->
+	Page_image.opacity = 0
+	Page_all.opacity = 0
+	Page_gif.opacity = 1
+	Page_audio.opacity = 0
+	Page_video.opacity = 0
+
+All.onClick ->
+	Page_image.opacity = 0
+	Page_all.opacity = 1
+	Page_gif.opacity = 0
+	Page_audio.opacity = 0
+	Page_video.opacity = 0
+		
+		
+		
+		
