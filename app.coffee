@@ -1,6 +1,6 @@
 CameraInput = require "framer-camera-input/CameraInput"
 InputModule = require "input-framer/input"
-# Flexer = require "Flexer"
+# data = JSON.parse Utils.domLoadDataSync “data/data.json” #
 
 	# Basic usage
 InputModule = require "input"
@@ -60,26 +60,26 @@ paste_clipboard.onClick ->
 
 bg1.states =
 	one:
-		backgroundColor: "yellow"
+		backgroundColor: "#FF88AA"
 	two:
-		backgroundColor: "blue"
+		backgroundColor: "#1199EE"
 	three:
-		backgroundColor: "green"
+		backgroundColor: "#22AA99"
 	four:
-		backgroundColor: "red"
+		backgroundColor: "#5890DC"
 
 bg1.animationOptions =
 	time:0.5
 
 color_selector.states =
 	one:
-		backgroundColor: "yellow"
+		backgroundColor: "#FF88AA"
 	two:
-		backgroundColor: "blue"
+		backgroundColor: "#1199EE"
 	three:
-		backgroundColor: "green"
+		backgroundColor: "#22AA99"
 	four:
-		backgroundColor: "red"
+		backgroundColor: "#5890DC"
 
 color_selector.animationOptions =
 	time:0.5
@@ -103,6 +103,18 @@ Mask.states =
 	two:
 		rotation: 0
 
+bounds.states =
+	one:
+		shadowColor: "rgba(0,0,0,0.1)"
+		shadowBlur: 4
+		shadowType: "inner"
+	
+	two:
+		shadowColor: "rgba(0,0,0,0)"
+		shadowBlur: 0
+		shadowType: "inner"
+
+
 camera_btn.animationOptions =
 	time: 0.40
 	curve: Bezier.ease
@@ -123,13 +135,18 @@ Mask.animationOptions =
 	time: 0.40
 	curve: Bezier.ease
 
+bounds.animationOptions =
+	time: 0.40
+	curve: Bezier.ease
+
 Add_Tab.onTap ->
 	camera_btn.stateCycle("one","two")
 	text_btn.stateCycle("one","two")
 	gallery_btn.stateCycle("one","two")
 	draft_btn.stateCycle("one","two")
 	Mask.stateCycle("one","two")
-	bounds.stateCycle()
+	bounds.stateCycle("one","two")
+	
 	
 flow = new FlowComponent
 flow.showNext(Samsung_Note_5)
@@ -281,16 +298,15 @@ for index in [0...rows]
 		originX: 0.5
 		originY: 0.5
 		parent: scroll.content
-		backgroundColor: "#00AAFF"
-		hueRotate: index * 10
+		backgroundColor: data.data[index].backgroundColor
 	cells.push(cell)
 
 scroll.content.draggable.overdrag = false
 scroll.content.draggable.bounce = false
 scroll.contentInset =
-	top: bucket_scroll.height/2
+	top: bucket_scroll.height/2 - cell.height/2
 	bottom: bucket_scroll.height/2
-scroll.content.draggable.momentumOptions = {friction: 1000}
+scroll.content.draggable.momentumOptions = {friction: 200}
 
 
 scroll.onScroll ->
@@ -309,7 +325,7 @@ scroll.onScroll ->
 		
 	for i in [0...rows]
 		if cells[i].scale < 0.94
-			cells[i].opacity = 0.5
+			cells[i].opacity = 0.3
 		else
 			cells[i].opacity = 1
 
